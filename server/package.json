@@ -2,7 +2,11 @@
   "name": "server",
   "type": "module",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "nodemon server.mjs"
+  },
   "author": "Tox",
   "license": "MIT",
   "dependencies": {
@@ -11,6 +15,16 @@
     "express": "^4.18.2",
     "framer-motion": "^12.29.2",
     "mongodb": "^5.7.0",
+<<<<<<< HEAD
     "mongoose": "^7.3.4"
   }
 }
+=======
+    "mongoose": "^7.3.4",
+    "yarn": "^1.22.22"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
+>>>>>>> main
