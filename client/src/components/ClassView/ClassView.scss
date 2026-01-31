@@ -1,0 +1,193 @@
+.class-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 0;
+  padding: 12px;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.class-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.back-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 6px;
+}
+
+.class-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.class-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.class-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.class-desc {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.class-body {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+}
+
+.items {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 8px;
+  background: #f8fafc;
+  border: 1px solid #eef2f7;
+}
+
+.item-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-title {
+  font-weight: 600;
+}
+
+.item-date {
+  color: #6b7280;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+.item-right {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+// filepath: /home/monty/Documents/CUW/Freshman/Semester 2/Hackathon/Canvas_Hackathon/client/src/components/ClassView/ClassView.scss
+.class-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 0;
+  padding: 12px;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.class-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.back-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 6px;
+}
+
+.class-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.class-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.class-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.class-desc {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.class-body {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+}
+
+.items {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 8px;
+  background: #f8fafc;
+  border: 1px solid #eef2f7;
+}
+
+.item-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-title {
+  font-weight: 600;
+}
+
+.item-date {
+  color: #6b7280;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+.item-right {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
