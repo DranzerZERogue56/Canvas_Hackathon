@@ -17,25 +17,79 @@ async function apiCall(endpoint: string) {
     return response.json()
 }
 
+interface Calendar {
+    ics: string
+}
+
+interface Enrollment {
+    type: string
+    user_id: number
+    enrollment_state: string
+}
+
+interface Course {
+    id: number
+    name: string
+    start_at: string
+    calendar: Calendar
+    time_zone: string
+    enrollments: Enrollment
+}
+
+function parseCourse(data) {
+    const { id, name, start_at, calendar, time_zone, enrollments } = data
+
+    return { id, name, start_at, calendar, time_zone, enrollments }
+}
+
 async function getCourses() {
-    return apiCall("api/v1/courses")
+    const data = await apiCall("api/v1/courses")
+    return data.map(parseCourse)
 }
 
 async function getCourse(id: number) {
-    return apiCall(`api/v1/courses/${id}`)
+    const data = await apiCall(`api/v1/courses/${id}`)
+    return parseCourse(data)
+}
+
+interface Assignment {
+    id: number
+    description: string
+    points_possible: number
+    created_at: string
+    due_at: string | null
+    allowed_attempts: number
+    course_id: number
+    name: string
+    is_quiz_assignment: boolean
+    html_url: string
+    locked_for_user: boolean
+    require_lockdown_browser: boolean
+}
+
+function parseAssignment(data: any): Assignment {
+    const { id, description, points_possible, created_at, due_at,
+	    allowed_attempts, course_id, name, is_quiz_assignment, html_url,
+	    locked_for_user, require_lockdown_browser } = data
+
+    return { id, description, points_possible, created_at, due_at,
+	     allowed_attempts, course_id, name, is_quiz_assignment, html_url,
+	     locked_for_user, require_lockdown_browser }
 }
 
 async function getAssignments(course: number) {
-    return apiCall(`api/v1/courses/${course}/assignments`)
+    const data = await apiCall(`api/v1/courses/${course}/assignments`)
+    return data.map(parseAssignment)
 }
 
 async function getAssignment(course: number, id: number) {
-    return apiCall(`api/v1/courses/${course}/assignments/${id}`)
+    const data = await apiCall(`api/v1/courses/${course}/assignments/${id}`)
+    return parseAssignment(data)
 }
 
-getAssignment(8246, 361902)
-    .then((courses) => {
-	console.log(courses)
+getCourse(8246)
+    .then((r) => {
+	console.log(r)
     })
     .catch((err: unknown) => {
 	console.error(err)
