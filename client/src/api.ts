@@ -1,6 +1,10 @@
 // https://developerdocs.instructure.com/services/catalog/openapi
 
-const apiKey: string = "<API_KEY>"
+let apiKey: string = "<API_KEY>"
+
+function setApiKey(key) {
+    apiKey = key
+}
 
 async function apiCall(endpoint: string) {
     const response = await fetch(
@@ -13,7 +17,7 @@ async function apiCall(endpoint: string) {
     )
 
     if (!response.ok) {
-	throw new Error(`HTTP error! Status: ${response.status}`)
+		throw new Error(`HTTP error! Status: ${response.status}`)
     }
 
     return response.json()
@@ -88,3 +92,24 @@ async function getAssignment(course: number, id: number) {
     const data = await apiCall(`api/v1/courses/${course}/assignments/${id}`)
     return parseAssignment(data)
 }
+
+async function checkApiKey() {
+	try{
+		const data = await apiCall('api/v1/courses')
+		return true
+	} catch (error) {
+		return false
+	}
+}
+
+/*
+example calling checkApiKey()
+
+checkApiKey()
+	.then((r) => {
+		console.log(r)
+	})
+	.catch((err: unknown) => {
+		console.error(err)
+	})
+*/
