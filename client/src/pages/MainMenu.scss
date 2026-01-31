@@ -1,0 +1,96 @@
+.main-menu {
+  width: 100%;
+  max-width: none;    /* remove any max-width constraint */
+  margin: 0;          /* remove page margins */
+  padding: 12px;      /* adjust or set to 0 for flush edges */
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 12px;
+  box-sizing: border-box;
+  background: #f6f7fb;
+  min-height: 0;
+}
+
+/* ensure children use full available width and height */
+.main-left,
+.main-center {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: auto;
+}
+
+/* keep embedded calendar/stretch behavior */
+.main-center {
+  background: white;
+  border: 1px solid #e6e9ee;
+  border-radius: 8px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* ensure no default gaps */
+  overflow-x: hidden;
+}
+
+.app-main {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.menu-actions button {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  cursor: pointer;
+}
+
+.menu-actions button.active {
+  background: #111827;
+  color: white;
+  border-color: #111827;
+}
+
+/* placeholder styling */
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: #374151;
+  font-size: 14px;
+}
+
+/* embedded calendar area should stretch */
+.embedded-calendar {
+  min-height: 400px;
+}
+
+/* responsive */
+@media (max-width: 800px) {
+  .main-menu {
+    grid-template-columns: 1fr;
+  }
+  .main-left {
+    order: 2;
+  }
+  .main-center {
+    order: 1;
+  }
+}

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import LeftPanel from "../components/LeftPanel/LeftPanel";
+import "./Calendar_Page.scss";
 import CalendarView from "../components/CalendarView/CalendarView";
 import RightPanel from "../components/RightPanel/RightPanel";
 import ViewSwitcher from "../components/Controls/ViewSwitcher";
-// ...existing code...
 
 type ViewMode = "month" | "week" | "day";
 type ClassItem = { id: string; name: string; color?: string };
@@ -77,43 +76,42 @@ export default function Calendar_Page(): JSX.Element {
   };
 
   return (
-    <div style={{ height: "100%", display: "grid", gridTemplateColumns: "260px 1fr 300px", gap: 12, background: "#f5f7fb" }}>
-      <div style={{ borderRight: "1px solid #e6e9ee", padding: 16 }}>
-        <LeftPanel />
-      </div>
+    <div className="calendar-page">
 
-      <div style={{ padding: 16, overflow: "auto" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <h2 style={{ margin: 0 }}>Calendar</h2>
-            <div style={{ color: "#6b7280", fontSize: 13 }}>Canvas-like view</div>
+      <main className="main-column">
+        <div className="page-header">
+          <div className="header-left">
+            <h2 className="page-title">Calendar</h2>
+            <div className="page-sub">Canvas-like view</div>
           </div>
 
-          <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <button onClick={goPrev} style={{ padding: "6px 8px", cursor: "pointer" }}>‹</button>
-              <div style={{ minWidth: 160, textAlign: "center", fontWeight: 600 }}>{monthLabel}</div>
-              <button onClick={goNext} style={{ padding: "6px 8px", cursor: "pointer" }}>›</button>
-              <button onClick={goToToday} style={{ padding: "6px 8px", marginLeft: 8, cursor: "pointer" }}>Today</button>
+          <div className="header-right">
+            <div className="nav-controls">
+              <button className="nav-btn" onClick={goPrev}>‹</button>
+              <div className="month-label">{monthLabel}</div>
+              <button className="nav-btn" onClick={goNext}>›</button>
+              <button className="nav-btn today" onClick={goToToday}>Today</button>
             </div>
 
             <ViewSwitcher view={view} setView={setView} />
           </div>
         </div>
 
-        <CalendarView
-          view={view}
-          date={currentDate}
-          events={sampleEvents}
-          classes={sampleClasses}
-          enabledClasses={enabledClasses}
-          onDateSelect={openDay}
-        />
-      </div>
+        <div className="calendar-content">
+          <CalendarView
+            view={view}
+            date={currentDate}
+            events={sampleEvents}
+            classes={sampleClasses}
+            enabledClasses={enabledClasses}
+            onDateSelect={openDay}
+          />
+        </div>
+      </main>
 
-      <div style={{ borderLeft: "1px solid #e6e9ee", padding: 16 }}>
+      <aside className="right-column">
         <RightPanel classes={sampleClasses} enabledClasses={enabledClasses} toggleClass={toggleClass} />
-      </div>
+      </aside>
     </div>
   );
 }
