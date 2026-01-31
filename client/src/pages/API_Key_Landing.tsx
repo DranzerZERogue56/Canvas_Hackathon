@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
+import "./API_Key_Landing.scss"
 
-const HiddenCharInput: React.FC = () => {
+const API_Key_Landing: React.FC = () => {
     const [value, setValue] = useState('');
     const [display, setDisplay] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
@@ -40,20 +41,24 @@ const HiddenCharInput: React.FC = () => {
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <input
-                ref={inputRef}
-                type="text"
-                value={display}
-                onChange={handleChange}
-                onCopy={handleCopy}
-                onKeyUp={handleKeyUp}
-                style={{ fontSize: '2rem', padding: '1rem', width: '400px', textAlign: 'center' }}
-                autoComplete="off"
-                spellCheck={false}
-            />
+        <div className="api-key-landing">
+            <div className="title">Canvas classes</div>
+            <div className="textbox-container">
+                <input
+                    ref={inputRef}
+                    className="textbox"
+                    type="text"
+                    value={display}
+                    onChange={handleChange}
+                    onCopy={handleCopy}
+                    onKeyUp={handleKeyUp}
+                    autoComplete="off"
+                    spellCheck={false}
+                    placeholder="Enter your API key"
+                />
+            </div>
         </div>
     );
 };
 
-export default HiddenCharInput;
+export default API_Key_Landing;

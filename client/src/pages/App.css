@@ -1,27 +1,103 @@
-.app-header {
+.api-key-landing {
+    min-height: 100vh;
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid #e6e6e6;
-    background: #fff;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    background: radial-gradient(circle at top, #f9fbff, #eef2f7);
+    position: relative;
+    overflow: hidden;
+    font-family: "Inter", system-ui, sans-serif;
+
+    /* ───────── Tech Edge Animations ───────── */
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+    }
+
+    /* glowing animated border */
+    &::before {
+        border: 2px solid transparent;
+        border-image: linear-gradient(120deg,
+                #4ea8de,
+                #80ffdb,
+                #4ea8de) 1;
+        animation: border-glow 6s linear infinite;
+    }
+
+    /* subtle scan-line effect */
+    &::after {
+        background: repeating-linear-gradient(to bottom,
+                rgba(78, 168, 222, 0.08),
+                rgba(78, 168, 222, 0.08) 1px,
+                transparent 1px,
+                transparent 6px);
+        animation: scan 8s linear infinite;
+        mix-blend-mode: overlay;
+    }
+
+    /* ───────── Center Card ───────── */
+    .card {
+        background: #ffffff;
+        padding: 3rem 2.5rem;
+        border-radius: 14px;
+        box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.08),
+            0 0 0 1px rgba(78, 168, 222, 0.08);
+        text-align: center;
+        z-index: 1;
+        width: 100%;
+        max-width: 420px;
+    }
+
+    .title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #1b1f3b;
+        margin-bottom: 2rem;
+        letter-spacing: 0.5px;
+    }
+
+    .textbox {
+        width: 100%;
+        padding: 1rem 1.1rem;
+        font-size: 1.05rem;
+        border-radius: 10px;
+        border: 1px solid #ccd6e0;
+        background: #fdfefe;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+        transition: all 0.25s ease;
+
+        &:focus {
+            outline: none;
+            border-color: #4ea8de;
+            box-shadow:
+                0 0 0 3px rgba(78, 168, 222, 0.2),
+                inset 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+    }
 }
 
-.app-title {
-    font-weight: 600;
-    font-size: 1.05rem;
+/* ───────── Animations ───────── */
+
+@keyframes border-glow {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+
+    100% {
+        filter: hue-rotate(360deg);
+    }
 }
 
+@keyframes scan {
+    0% {
+        background-position-y: 0;
+    }
 
-
-.app-main {
-    padding: 1rem;
-}
-
-.home {
-    max-width: 900px;
-    margin: 0 auto;
+    100% {
+        background-position-y: 100%;
+    }
 }
