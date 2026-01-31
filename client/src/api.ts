@@ -86,12 +86,3 @@ async function getAssignment(course: number, id: number) {
     const data = await apiCall(`api/v1/courses/${course}/assignments/${id}`)
     return parseAssignment(data)
 }
-
-getCourse(8246)
-    .then((r) => {
-	console.log(r)
-    })
-    .catch((err: unknown) => {
-	console.error(err)
-    })
-
