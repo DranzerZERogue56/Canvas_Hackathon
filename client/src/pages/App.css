@@ -1,87 +1,98 @@
-.api-key-landing {
-    min-height: 100vh;
+/* client/src/pages/App.css */
+
+/* Full-page neon hacker background and central alignment */
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
     display: flex;
-    justify-content: center;
     align-items: center;
-    background: radial-gradient(circle at top, #f9fbff, #eef2f7);
-    position: relative;
-    overflow: hidden;
+    justify-content: center;
+    background: radial-gradient(circle at top left, #0d3b0d 0%, #021303 100%);
+    /* dull neon green */
     font-family: "Inter", system-ui, sans-serif;
-
-    /* ───────── Tech Edge Animations ───────── */
-    &::before,
-    &::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-    }
-
-    /* glowing animated border */
-    &::before {
-        border: 2px solid transparent;
-        border-image: linear-gradient(120deg,
-                #4ea8de,
-                #80ffdb,
-                #4ea8de) 1;
-        animation: border-glow 6s linear infinite;
-    }
-
-    /* subtle scan-line effect */
-    &::after {
-        background: repeating-linear-gradient(to bottom,
-                rgba(78, 168, 222, 0.08),
-                rgba(78, 168, 222, 0.08) 1px,
-                transparent 1px,
-                transparent 6px);
-        animation: scan 8s linear infinite;
-        mix-blend-mode: overlay;
-    }
-
-    /* ───────── Center Card ───────── */
-    .card {
-        background: #ffffff;
-        padding: 3rem 2.5rem;
-        border-radius: 14px;
-        box-shadow:
-            0 20px 40px rgba(0, 0, 0, 0.08),
-            0 0 0 1px rgba(78, 168, 222, 0.08);
-        text-align: center;
-        z-index: 1;
-        width: 100%;
-        max-width: 420px;
-    }
-
-    .title {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: #1b1f3b;
-        margin-bottom: 2rem;
-        letter-spacing: 0.5px;
-    }
-
-    .textbox {
-        width: 100%;
-        padding: 1rem 1.1rem;
-        font-size: 1.05rem;
-        border-radius: 10px;
-        border: 1px solid #ccd6e0;
-        background: #fdfefe;
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-        transition: all 0.25s ease;
-
-        &:focus {
-            outline: none;
-            border-color: #4ea8de;
-            box-shadow:
-                0 0 0 3px rgba(78, 168, 222, 0.2),
-                inset 0 1px 3px rgba(0, 0, 0, 0.05);
-        }
-    }
+    color: #cbeccb;
 }
 
-/* ───────── Animations ───────── */
+/* App container centered */
+.app-main {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
 
+/* Animations live on .api-key-landing */
+.api-key-landing {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Pseudo layers for glow + subtle scan line animation */
+.api-key-landing::before,
+.api-key-landing::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+/* glowing animated border */
+.api-key-landing::before {
+    border: 2px solid transparent;
+    border-image: linear-gradient(120deg, #4ea8de, #80ffdb, #4ea8de) 1;
+    animation: border-glow 6s linear infinite;
+}
+
+/* subtle scan-line effect */
+.api-key-landing::after {
+    background: repeating-linear-gradient(to bottom,
+            rgba(78, 168, 222, 0.05),
+            rgba(78, 168, 222, 0.05) 1px,
+            transparent 1px,
+            transparent 6px);
+    animation: scan 8s linear infinite;
+    mix-blend-mode: overlay;
+}
+
+/* Centered card visible above animations */
+.api-key-landing .card {
+    background: rgba(255, 255, 255, 0.96);
+    padding: 2.5rem 2rem;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    text-align: center;
+    z-index: 1;
+    width: 100%;
+    max-width: 520px;
+}
+
+/* Utilities */
+.api-key-landing .title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 1.25rem;
+}
+
+.api-key-landing .textbox {
+    color: #000;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid #ccd6e0;
+    background: #fff;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Animations */
 @keyframes border-glow {
     0% {
         filter: hue-rotate(0deg);

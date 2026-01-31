@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import "./API_Key_Landing.scss"
+import './API_Key_Landing.scss'
 
 const API_Key_Landing: React.FC = () => {
     const [value, setValue] = useState('');
@@ -42,20 +42,22 @@ const API_Key_Landing: React.FC = () => {
 
     return (
         <div className="api-key-landing">
-            <div className="title">Canvas classes</div>
-            <div className="textbox-container">
-                <input
-                    ref={inputRef}
-                    className="textbox"
-                    type="text"
-                    value={display}
-                    onChange={handleChange}
-                    onCopy={handleCopy}
-                    onKeyUp={handleKeyUp}
-                    autoComplete="off"
-                    spellCheck={false}
-                    placeholder="Enter your API key"
-                />
+            <div className="card">
+                <div className="title">Canvas classes</div>
+                <div className="textbox-container">
+                    <input
+                        ref={inputRef}
+                        className="textbox"
+                        type="text"
+                        value={display}
+                        onChange={handleChange}
+                        onCopy={handleCopy}
+                        onKeyUp={handleKeyUp}
+                        autoComplete="off"
+                        spellCheck={false}
+                        placeholder="Enter your API key"
+                    />
+                </div>
             </div>
         </div>
     );
