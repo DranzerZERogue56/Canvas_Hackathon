@@ -17,13 +17,16 @@ export default function DayView({
   const iso = date.toISOString().slice(0, 10);
   const dayEvents = events.filter((e) => e.date === iso && enabledClasses[e.classId]);
 
-  const hours = Array.from({ length: 12 }, (_, i) => 8 + i);
+  // Show 24 hours (0..23)
+  const hours = Array.from({ length: 24 }, (_, i) => i);
 
   return (
     <div style={{ display: "flex", gap: 12 }}>
       <div style={{ width: 80 }}>
         {hours.map((h) => (
-          <div key={h} style={{ height: 48, paddingTop: 10, color: "#6b7280" }}>{h}:00</div>
+          <div key={h} style={{ height: 48, paddingTop: 10, color: "#6b7280", fontSize: 13 }}>
+            {String(h).padStart(2, "0")}:00
+          </div>
         ))}
       </div>
       <div style={{ flex: 1 }}>

@@ -1,4 +1,5 @@
 import React from "react";
+// ...existing code...
 
 type EventItem = { id: string; title: string; date: string; classId: string; time?: string };
 type ClassItem = { id: string; name: string; color?: string };
@@ -14,11 +15,13 @@ export default function WeekView({
   events,
   classes,
   enabledClasses,
+  onDateSelect,
 }: {
   date: Date;
   events: EventItem[];
   classes: ClassItem[];
   enabledClasses: Record<string, boolean>;
+  onDateSelect?: (d: Date) => void;
 }): JSX.Element {
   const dayOfWeek = date.getDay();
   const weekStart = addDays(date, -dayOfWeek);
@@ -43,7 +46,11 @@ export default function WeekView({
               {dayEvents.map((ev) => {
                 const clsColor = classes.find((c) => c.id === ev.classId)?.color ?? "#d1d5db";
                 return (
-                  <div key={ev.id} style={{ padding: "8px", background: clsColor, color: "white", borderRadius: 6 }}>
+                  <div
+                    key={ev.id}
+                    onClick={() => onDateSelect && onDateSelect(new Date(ev.date))}
+                    style={{ padding: "8px", background: clsColor, color: "white", borderRadius: 6, cursor: onDateSelect ? "pointer" : "default" }}
+                  >
                     <div style={{ fontSize: 13, fontWeight: 600 }}>{ev.title}</div>
                     <div style={{ fontSize: 12, opacity: 0.9 }}>{ev.time}</div>
                   </div>
