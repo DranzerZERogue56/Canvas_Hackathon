@@ -2,10 +2,6 @@
 
 let apiKey: string = "<API_KEY>"
 
-function setApiKey(key) {
-    apiKey = key
-}
-
 async function apiCall(endpoint: string) {
     const response = await fetch(
 	`https://cuwaa.instructure.com/${endpoint}`,
@@ -93,13 +89,16 @@ async function getAssignment(course: number, id: number) {
     return parseAssignment(data)
 }
 
-async function checkApiKey() {
-	try{
-		const data = await apiCall('api/v1/courses')
-		return true
-	} catch (error) {
-		return false
-	}
+async function tryApiKey(key) {
+    const api_key_bak = api_key
+    api_key = key
+    try{
+	const data = await apiCall('api/v1/courses')
+      	return true
+    } catch (error) {
+	api_key = api_key_bak
+	return false
+    }
 }
 
 /*
@@ -113,3 +112,5 @@ checkApiKey()
 		console.error(err)
 	})
 */
+
+export { getCourse, getCourses, getAssignment, getAssignments, tryApiKey }
