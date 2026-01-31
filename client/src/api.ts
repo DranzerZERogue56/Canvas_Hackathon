@@ -1,3 +1,5 @@
+// https://developerdocs.instructure.com/services/catalog/openapi
+
 const apiKey: string = "<API_KEY>"
 
 async function apiCall(endpoint: string) {
