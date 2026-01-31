@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Calendar_Page.scss";
 import CalendarView from "../components/CalendarView/CalendarView";
-import RightPanel from "../components/RightPanel/RightPanel";
+//import RightPanel from "../components/RightPanel/RightPanel";
 import ViewSwitcher from "../components/Controls/ViewSwitcher";
 
 type ViewMode = "month" | "week" | "day";
@@ -108,10 +108,6 @@ export default function Calendar_Page(): JSX.Element {
           />
         </div>
       </main>
-
-      <aside className="right-column">
-        <RightPanel classes={sampleClasses} enabledClasses={enabledClasses} toggleClass={toggleClass} />
-      </aside>
     </div>
   );
 }

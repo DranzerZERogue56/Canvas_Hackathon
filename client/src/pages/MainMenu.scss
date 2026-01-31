@@ -1,21 +1,17 @@
 .main-menu {
   width: 100%;
-  max-width: none;    /* remove any max-width constraint */
-  margin: 0;          /* remove page margins */
-  padding: 12px;      /* adjust or set to 0 for flush edges */
-  height: 100vh;
+  margin: 0;
+  padding: 12px;
+  height: calc(100vh - 0px);
   display: grid;
   grid-template-columns: 240px 1fr;
   gap: 12px;
   box-sizing: border-box;
-  background: #f6f7fb;
-  min-height: 0;
 }
 
-/* ensure children use full available width and height */
+/* children stretch to fill container */
 .main-left,
 .main-center {
-  width: 100%;
   height: 100%;
   min-height: 0;
   overflow: auto;
@@ -36,10 +32,17 @@ html, body, #root {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* ensure no default gaps */
-  overflow-x: hidden;
 }
 
+body {
+  display: flex;
+  align-items: center;   /* center vertically */
+  justify-content: center;
+  min-height: 100vh;
+  background: transparent;
+}
+
+/* keep app main full width so pages stretch to edges */
 .app-main {
   width: 100%;
   min-height: 100vh;

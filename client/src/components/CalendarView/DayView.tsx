@@ -21,17 +21,29 @@ export default function DayView({
   const hours = Array.from({ length: 24 }, (_, i) => i);
 
   return (
-    <div style={{ display: "flex", gap: 12 }}>
-      <div style={{ width: 80 }}>
+    <div style={{ height: "100%", display: "flex", gap: 12 }}>
+      <div style={{ width: 80, display: "flex", flexDirection: "column" }}>
         {hours.map((h) => (
-          <div key={h} style={{ height: 48, paddingTop: 10, color: "#6b7280", fontSize: 13 }}>
+          <div key={h} style={{ flex: 1, paddingTop: 6, color: "#6b7280", fontSize: 13 }}>
             {String(h).padStart(2, "0")}:00
           </div>
         ))}
       </div>
-      <div style={{ flex: 1 }}>
+
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}>
         {hours.map((h) => (
-          <div key={h} style={{ height: 48, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", padding: 8 }}>
+          <div
+            key={h}
+            style={{
+              flex: 1,
+              borderBottom: "1px solid #e5e7eb",
+              display: "flex",
+              alignItems: "center",
+              padding: 8,
+              minHeight: 0,
+              overflow: "hidden",
+            }}
+          >
             {dayEvents
               .filter((ev) => {
                 if (!ev.time) return false;
@@ -41,7 +53,7 @@ export default function DayView({
               .map((ev) => {
                 const clsColor = classes.find((c) => c.id === ev.classId)?.color ?? "#d1d5db";
                 return (
-                  <div key={ev.id} style={{ padding: "6px 8px", background: clsColor, color: "white", borderRadius: 6, marginRight: 8 }}>
+                  <div key={ev.id} style={{ padding: "6px 8px", background: clsColor, color: "white", borderRadius: 6, marginRight: 8, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                     {ev.title}
                   </div>
                 );

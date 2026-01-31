@@ -1,0 +1,190 @@
+.month-view {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 100;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.weekday {
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+/* Make cells use a 6-row grid with equal row heights so each day cell is the same size */
+.cells {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, minmax(240px, 1fr)); /* 6 equal rows */
+  gap: 8px;
+  margin-top: 8px;
+  flex: 1;
+  height: 100%;      /* ensure grid fills available vertical space */
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.cell {
+  padding: 12px;
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;  /* prevent content from expanding the cell */
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+.cell-day {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 6px;
+  line-height: 1;
+}
+
+/* Allow event list inside each fixed-size cell to scroll if it overflows */
+.events {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto; /* scroll only inside the cell, not grow the cell */
+  flex: 1;
+  min-height: 0;
+}
+
+/* Keep event content single-line and truncated so it won't force extra height */
+.event {
+  padding: 4px 6px;
+  color: #ffffff;
+  border-radius: 4px;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* small hover affordance */
+.event:hover {
+  filter: brightness(0.95);
+}
+// filepath: /home/monty/Documents/CUW/Freshman/Semester 2/Hackathon/Canvas_Hackathon/client/src/components/CalendarView/MonthView.scss
+.month-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.weekday {
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+/* Make cells use a 6-row grid with equal row heights so each day cell is the same size */
+.cells {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  /* make each of the 6 rows larger while remaining responsive */
+  grid-template-rows: repeat(6, minmax(140px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+/* slightly larger padding for cell content */
+.cell {
+  padding: 12px;
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+/* ...existing code... */
+// filepath: /home/monty/Documents/CUW/Freshman/Semester 2/Hackathon/Canvas_Hackathon/client/src/components/CalendarView/MonthView.scss
+/* ...existing code... */
+
+.cells {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(60px, 1fr));
+  /* make each of the 6 rows larger while remaining responsive */
+  grid-template-rows: repeat(6, minmax(80px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+/* slightly larger padding for cell content */
+.cell {
+  padding: 12px;
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+.cell-day {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 6px;
+  line-height: 1;
+}
+
+/* Allow event list inside each fixed-size cell to scroll if it overflows */
+.events {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto; /* scroll only inside the cell, not grow the cell */
+  flex: 1;
+  min-height: 0;
+}
+
+/* Keep event content single-line and truncated so it won't force extra height */
+.event {
+  padding: 4px 6px;
+  color: #ffffff;
+  border-radius: 4px;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* small hover affordance */
+.event:hover {
+  filter: brightness(0.95);
+}

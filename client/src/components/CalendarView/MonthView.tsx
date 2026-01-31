@@ -1,9 +1,10 @@
 import React from "react";
-// ...existing code...
+import "./MonthView.scss";
 
 type EventItem = { id: string; title: string; date: string; classId: string; time?: string };
 type ClassItem = { id: string; name: string; color?: string };
 
+// ...existing code...
 export default function MonthView({
   date,
   events,
@@ -20,8 +21,12 @@ export default function MonthView({
   const year = date.getFullYear();
   const month = date.getMonth();
   const lastDay = new Date(year, month + 1, 0).getDate();
-  const days = Array.from({ length: lastDay }, (_, i) => i + 1);
 
+  // use local first-day weekday (consistent with local date formatting below)
+  const firstDayWeekday = new Date(year, month, 1).getDay(); // 0..6 (Sun..Sat)
+  const totalCells = 42; // 6 rows * 7 cols for consistent sizing
+
+  // group events by YYYY-MM-DD (keep strings as provided)
   const eventsByDate = events.reduce<Record<string, EventItem[]>>((acc, e) => {
     if (!enabledClasses[e.classId]) return acc;
     acc[e.date] = acc[e.date] ?? [];
@@ -29,52 +34,47 @@ export default function MonthView({
     return acc;
   }, {});
 
+  // build 42 cells (null for empty leading/trailing)
+  const cells = Array.from({ length: totalCells }, (_, i) => {
+    const dayNum = i - firstDayWeekday + 1;
+    return dayNum >= 1 && dayNum <= lastDay ? dayNum : null;
+  });
+
+  const pad = (n: number) => String(n).padStart(2, "0");
+
   return (
-    <div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 6 }}>
+    <div className="month-view">
+      <div className="weekdays">
         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
-          <div key={d} style={{ fontWeight: 600, color: "#6b7280" }}>{d}</div>
+          <div key={d} className="weekday">{d}</div>
         ))}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 8, marginTop: 8 }}>
-        {days.map((d) => {
-          const iso = `${year}-${String(month + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
-          const dayEvents = eventsByDate[iso] ?? [];
+      <div className="cells">
+        {cells.map((dayNum, idx) => {
+          const iso =
+            dayNum == null
+              ? null
+              : `${year}-${pad(month + 1)}-${pad(dayNum)}`;
+          const dayEvents = iso ? eventsByDate[iso] ?? [] : [];
           return (
-            <div
-              key={d}
-              style={{
-                height: 140,
-                padding: 8,
-                background: "white",
-                borderRadius: 6,
-                border: "1px solid #e5e7eb",
-                display: "flex",
-                flexDirection: "column",
-                overflow: "hidden",
-              }}
-            >
-              <div style={{ fontSize: 12, color: "#6b7280", marginBottom: 6 }}>{d}</div>
+            <div key={idx} className="cell">
+              <div className="cell-day">{dayNum ?? ""}</div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: 6, overflowY: "auto", flex: 1 }}>
+              <div className="events">
                 {dayEvents.map((ev) => {
                   const clsColor = classes.find((c) => c.id === ev.classId)?.color ?? "#d1d5db";
                   return (
                     <div
                       key={ev.id}
-                      onClick={() => onDateSelect && onDateSelect(new Date(ev.date))}
-                      style={{
-                        padding: "4px 6px",
-                        background: clsColor,
-                        color: "white",
-                        borderRadius: 4,
-                        fontSize: 13,
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                        cursor: onDateSelect ? "pointer" : "default",
+                      onClick={() => {
+                        if (!onDateSelect) return;
+                        // create a local Date (year, month, day) to avoid timezone shift
+                        const d = new Date(year, month, dayNum ?? 1);
+                        onDateSelect(d);
                       }}
+                      className="event"
+                      style={{ background: clsColor }}
                       title={ev.title}
                     >
                       {ev.time ? `${ev.time} — ` : ""}{ev.title}
