@@ -9,6 +9,12 @@ function addDays(d: Date, n: number) {
   return x;
 }
 
+// parse "YYYY-MM-DD" into a local Date at midnight to avoid UTC timezone shifts
+function parseISODateToLocal(iso: string) {
+  const [y, m, day] = iso.split("-").map(Number);
+  return new Date(y, m - 1, day);
+}
+
 export default function WeekView({
   date,
   events,
@@ -38,9 +44,11 @@ export default function WeekView({
       {days.map((d) => {
         const iso = d.toISOString().slice(0, 10);
         const dayEvents = eventsByDate[iso] ?? [];
+        const localDayDate = parseISODateToLocal(iso);
         return (
           <div
             key={iso}
+            onClick={() => onDateSelect && onDateSelect(localDayDate)}
             style={{
               padding: 8,
               background: "white",
@@ -49,6 +57,7 @@ export default function WeekView({
               display: "flex",
               flexDirection: "column",
               overflow: "hidden",
+              cursor: onDateSelect ? "pointer" : "default",
             }}
           >
             <div style={{ fontSize: 13, fontWeight: 600 }}>
@@ -60,7 +69,10 @@ export default function WeekView({
                 return (
                   <div
                     key={ev.id}
-                    onClick={() => onDateSelect && onDateSelect(new Date(ev.date))}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDateSelect && onDateSelect(parseISODateToLocal(ev.date));
+                    }}
                     style={{
                       padding: "8px",
                       background: clsColor,
