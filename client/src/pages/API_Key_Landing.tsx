@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { tryApiKey } from '../api.ts'
 
 const HiddenCharInput: React.FC = () => {
     const [value, setValue] = useState('');
@@ -37,6 +38,22 @@ const HiddenCharInput: React.FC = () => {
         if (value.length > 1) {
             setDisplay('*'.repeat(value.length - 1) + value[value.length - 1]);
         }
+
+		if (_e.key === 'Enter') {
+		 	tryApiKey(value)
+			.then((r) => {
+				if (r) {
+					alert('correct')
+				} else {
+					alert('incorrect')
+					setDisplay('')
+					setValue('')
+				}
+			})
+			.catch((err) => {
+				throw(err)
+			})
+		}
     };
 
     return (
