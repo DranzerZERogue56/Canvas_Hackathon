@@ -59,9 +59,10 @@
   overflow-y: auto; /* scroll only inside the cell, not grow the cell */
   flex: 1;
   min-height: 0;
+  box-sizing: border-box;
 }
 
-/* Keep event content single-line and truncated so it won't force extra height */
+/* Keep event content from expanding cell width — allow wrapping and clamp lines so items shrink to fit */
 .event {
   padding: 4px 6px;
   color: #ffffff;
@@ -69,8 +70,14 @@
   font-size: 13px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;            /* allow wrapping */
+  display: -webkit-box;           /* multi-line truncation */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;          /* show up to 2 lines then truncate */
+  line-height: 1.2;
+  max-height: calc(1.2em * 2);    /* enforce visual clamp for non-webkit browsers */
   cursor: pointer;
+  flex-shrink: 1;                 /* allow shrinking if needed */
 }
 
 /* small hover affordance */

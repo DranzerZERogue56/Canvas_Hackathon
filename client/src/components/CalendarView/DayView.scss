@@ -1,0 +1,193 @@
+.day-view {
+  height: 100%;
+  display: flex;
+  gap: 12px;
+  box-sizing: border-box;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.day-hours {
+  width: 80px;
+  flex: 0 0 80px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+.hour-label {
+  flex: 1 1 0;
+  padding-top: 6px;
+  padding-right: 8px;
+  color: #6b7280;
+  font-size: 13px;
+  text-align: right;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.day-columns {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* each hour row takes equal space */
+.hour-row {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-bottom: 1px solid #e5e7eb;
+  min-height: 0;
+  box-sizing: border-box;
+
+  /* allow horizontal scrolling of events if they overflow the row */
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* don't show border on the last row if desired */
+.hour-row:last-child {
+  border-bottom: none;
+}
+
+/* events inside hour rows */
+.day-event {
+  flex: 0 1 auto;           /* allow shrinking but not forcing full row */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 6px 8px;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 13px;
+  cursor: pointer;
+  box-sizing: border-box;
+  margin-right: 8px;
+  max-width: 100%;
+}
+
+/* small focus/hover affordance */
+.day-event:hover,
+.day-event:focus {
+  filter: brightness(0.95);
+  outline: none;
+}
+
+/* ensure scrollbar track is unobtrusive */
+.hour-row::-webkit-scrollbar {
+  height: 8px;
+}
+.hour-row::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.06);
+  border-radius: 6px;
+}
+
+/* defensive rules so children don't force parent scroll */
+.day-view > * { min-height: 0; min-width: 0; box-sizing: border-box; }
+// filepath: /home/monty/Documents/CUW/Freshman/Semester 2/Hackathon/Canvas_Hackathon/client/src/components/CalendarView/DayView.scss
+.day-view {
+  height: 100%;
+  display: flex;
+  gap: 12px;
+  box-sizing: border-box;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.day-hours {
+  width: 80px;
+  flex: 0 0 80px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 0;
+}
+
+.hour-label {
+  flex: 1 1 0;
+  padding-top: 6px;
+  padding-right: 8px;
+  color: #6b7280;
+  font-size: 13px;
+  text-align: right;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.day-columns {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* each hour row takes equal space */
+.hour-row {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-bottom: 1px solid #e5e7eb;
+  min-height: 0;
+  box-sizing: border-box;
+
+  /* allow horizontal scrolling of events if they overflow the row */
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* don't show border on the last row if desired */
+.hour-row:last-child {
+  border-bottom: none;
+}
+
+/* events inside hour rows */
+.day-event {
+  flex: 0 1 auto;           /* allow shrinking but not forcing full row */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 6px 8px;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 13px;
+  cursor: pointer;
+  box-sizing: border-box;
+  margin-right: 8px;
+  max-width: 100%;
+}
+
+/* small focus/hover affordance */
+.day-event:hover,
+.day-event:focus {
+  filter: brightness(0.95);
+  outline: none;
+}
+
+/* ensure scrollbar track is unobtrusive */
+.hour-row::-webkit-scrollbar {
+  height: 8px;
+}
+.hour-row::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.06);
+  border-radius: 6px;
+}
+
+/* defensive rules so children don't force parent scroll */
+.day-view > * { min-height: 0; min-width: 0; box-sizing: border-box; }

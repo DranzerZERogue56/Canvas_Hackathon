@@ -20,13 +20,12 @@ export default function MonthView({
 }): JSX.Element {
   const year = date.getFullYear();
   const month = date.getMonth();
-  const lastDay = new Date(year, month + 1, 0).getDate();
 
-  // use local first-day weekday (consistent with local date formatting below)
-  const firstDayWeekday = new Date(year, month, 1).getDay(); // 0..6 (Sun..Sat)
-  const totalCells = 42; // 6 rows * 7 cols for consistent sizing
+  // first weekday of current month (0..6)
+  const firstDayWeekday = new Date(year, month, 1).getDay();
+  const totalCells = 42; // 6 rows * 7 cols
 
-  // group events by YYYY-MM-DD (keep strings as provided)
+  // group events by YYYY-MM-DD
   const eventsByDate = events.reduce<Record<string, EventItem[]>>((acc, e) => {
     if (!enabledClasses[e.classId]) return acc;
     acc[e.date] = acc[e.date] ?? [];
@@ -34,13 +33,17 @@ export default function MonthView({
     return acc;
   }, {});
 
-  // build 42 cells (null for empty leading/trailing)
-  const cells = Array.from({ length: totalCells }, (_, i) => {
-    const dayNum = i - firstDayWeekday + 1;
-    return dayNum >= 1 && dayNum <= lastDay ? dayNum : null;
-  });
-
   const pad = (n: number) => String(n).padStart(2, "0");
+
+  // build cells for 42 slots; compute actual Date for each cell (handles prev/next month automatically)
+  const cells = Array.from({ length: totalCells }, (_, i) => {
+    const dayNum = i - firstDayWeekday + 1; // may be <=0 or >lastDay -> prev/next month
+    const cellDate = new Date(year, month, dayNum);
+    const iso = `${cellDate.getFullYear()}-${pad(cellDate.getMonth() + 1)}-${pad(cellDate.getDate())}`;
+    const inCurrentMonth = cellDate.getMonth() === month;
+    const dayEvents = eventsByDate[iso] ?? [];
+    return { cellDate, iso, inCurrentMonth, dayEvents };
+  });
 
   return (
     <div className="month-view">
@@ -51,15 +54,17 @@ export default function MonthView({
       </div>
 
       <div className="cells">
-        {cells.map((dayNum, idx) => {
-          const iso =
-            dayNum == null
-              ? null
-              : `${year}-${pad(month + 1)}-${pad(dayNum)}`;
-          const dayEvents = iso ? eventsByDate[iso] ?? [] : [];
+        {cells.map(({ cellDate, inCurrentMonth, dayEvents }, idx) => {
+          const dayNumber = cellDate.getDate();
           return (
-            <div key={idx} className="cell">
-              <div className="cell-day">{dayNum ?? ""}</div>
+            <div
+              key={idx}
+              className={`cell ${inCurrentMonth ? "" : "cell--adjacent"}`}
+              onClick={() => onDateSelect && onDateSelect(new Date(cellDate.getFullYear(), cellDate.getMonth(), cellDate.getDate()))}
+              role={onDateSelect ? "button" : undefined}
+              title={cellDate.toDateString()}
+            >
+              <div className="cell-day">{dayNumber}</div>
 
               <div className="events">
                 {dayEvents.map((ev) => {
@@ -67,15 +72,15 @@ export default function MonthView({
                   return (
                     <div
                       key={ev.id}
-                      onClick={() => {
-                        if (!onDateSelect) return;
-                        // create a local Date (year, month, day) to avoid timezone shift
-                        const d = new Date(year, month, dayNum ?? 1);
-                        onDateSelect(d);
-                      }}
                       className="event"
                       style={{ background: clsColor }}
                       title={ev.title}
+                      onClick={(e) => {
+                        // prevent parent cell click from firing twice if an event click is handled elsewhere
+                        e.stopPropagation();
+                        if (!onDateSelect) return;
+                        onDateSelect(new Date(cellDate.getFullYear(), cellDate.getMonth(), cellDate.getDate()));
+                      }}
                     >
                       {ev.time ? `${ev.time} — ` : ""}{ev.title}
                     </div>
