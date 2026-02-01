@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './API_Key_Landing.scss'
+import { tryApiKey } from '../api.ts'
 
 const API_Key_Landing: React.FC = () => {
     const [value, setValue] = useState('');
@@ -41,9 +42,21 @@ const API_Key_Landing: React.FC = () => {
             setDisplay('*'.repeat(value.length - 1) + value[value.length - 1]);
         }
         if (e.key === 'Enter' && value.length > 0) {
-            localStorage.setItem('canvasApiKey', value);
-            navigate('/main');
-        }
+            tryApiKey(value)
+			.then((r) => {
+				if (r) {
+					localStorage.setItem('canvasApiKey', value);
+            		navigate('/main');
+				} else {
+					alert('incorrect')
+					setDisplay('')
+					setValue('')
+				}
+			})
+			.catch((err) => {
+				throw(err)
+			})
+		}
     };
 
     return (
