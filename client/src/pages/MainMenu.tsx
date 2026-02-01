@@ -4,6 +4,8 @@ import LeftPanel from "../components/LeftPanel/LeftPanel";
 import Calendar_Page from "./Calendar_Page"; // render the full calendar page inside main menu
 import ClassView from "../components/ClassView/ClassView";
 
+import * as api from "../api.ts";
+
 type ClassItem = { id: string; name: string; color?: string; description?: string };
 type EventItem = { id: string; title: string; date: string; classId: string; time?: string };
 
