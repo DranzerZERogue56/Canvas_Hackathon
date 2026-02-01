@@ -25,7 +25,7 @@ async function getCourses() {
 
 async function getCourse(id: number) {
 	try {
-		const result = await apiCall(`courses/${id}`', {
+		const result = await apiCall(`courses/${id}`, {
 			method: 'POST',
 			headers: { "Content-Type": 'application/json' },
 			body: JSON.stringify({ id }),
