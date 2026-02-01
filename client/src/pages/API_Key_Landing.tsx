@@ -1,10 +1,12 @@
 import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './API_Key_Landing.scss'
 
 const API_Key_Landing: React.FC = () => {
     const [value, setValue] = useState('');
     const [display, setDisplay] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
+    const navigate = useNavigate();
 
     // Prevent copying from the input
     const handleCopy = (e: React.ClipboardEvent<HTMLInputElement>) => {
@@ -33,10 +35,14 @@ const API_Key_Landing: React.FC = () => {
         }
     };
 
-    // Hide previous char after next input
-    const handleKeyUp = (_e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Hide previous char after next input; submit on Enter
+    const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (value.length > 1) {
             setDisplay('*'.repeat(value.length - 1) + value[value.length - 1]);
+        }
+        if (e.key === 'Enter' && value.length > 0) {
+            localStorage.setItem('canvasApiKey', value);
+            navigate('/main');
         }
     };
 

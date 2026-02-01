@@ -11,6 +11,7 @@ export default function App() {
       <div style={{ flex: 1 }}>
         <Routes>
           <Route path="/" element={<API_Key_Landing/>} />
+          <Route path="/main" element={<MainMenu/>} />
         </Routes>
       </div>
     </div>
