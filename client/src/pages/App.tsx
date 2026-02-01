@@ -1,15 +1,19 @@
-import React from 'react'
-import API_Key_Landing from './API_Key_Landing'
-//import './App.css'   /* <-- fix: import the CSS so the background & centering apply */
-import CALENDAR_PAGE from './Calendar_Page'
-import MAIN_PAGE from './MainMenu'
+import { Routes, Route } from "react-router-dom";
+import LeftPanel from "../components/LeftPanel/LeftPanel";
+import MainMenu from "./MainMenu.tsx";
+import ClassPage from "./Class_Page";
 
-function App() {
+export default function App() {
   return (
-    <main className="app-main">
-      <MAIN_PAGE/>
-    </main>
-  )
-}
+    <div style={{ display: "flex" }}>
+      <LeftPanel />
 
-export default App
+      <div style={{ flex: 1 }}>
+        <Routes>
+          <Route path="/" element={<MainMenu />} />
+          <Route path="/courses" element={<ClassPage />} />
+        </Routes>
+      </div>
+    </div>
+  );
+}

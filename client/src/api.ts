@@ -29,16 +29,16 @@ interface Enrollment {
     enrollment_state: string
 }
 
-interface Course {
+export interface Course {
     id: number
     name: string
     start_at: string
     calendar: Calendar
     time_zone: string
     enrollments: Enrollment
-}
+} 
 
-function parseCourse(data) {
+function parseCourse(data: any): Course {
     const { id, name, start_at, calendar, time_zone, enrollments } = data
 
     return { id, name, start_at, calendar, time_zone, enrollments }
@@ -113,4 +113,4 @@ checkApiKey()
 	})
 */
 
-export { getCourse, getCourses, getAssignment, getAssignments, tryApiKey }
+export { getCourse, getCourses, getAssignment, getAssignments, tryApiKey}
