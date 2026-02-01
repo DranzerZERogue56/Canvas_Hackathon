@@ -49,7 +49,6 @@ export default function Calendar_Page({
         <div className="page-header">
           <div className="header-left">
             <h2 className="page-title">Calendar</h2>
-            <div className="page-sub">Canvas-like view</div>
           </div>
 
           <div className="header-right">

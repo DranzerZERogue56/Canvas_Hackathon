@@ -1,227 +1,51 @@
-.calendar-page {
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 300px; /* removed left column, main + right */
-  gap: 12px;
-  background: #f5f7fb;
-  box-sizing: border-box;
-  min-height: 0;
-}
-
-/* left-column styles removed */
-
-.right-column {
-  border-left: 1px solid #e6e9ee;
-  padding: 16px;
-  box-sizing: border-box;
-  overflow: auto;
-  background: transparent;
-}
-
-.main-column {
-  padding: 16px;
-  overflow: hidden; /* prevent page-level scroll; calendar child will fill and handle overflow */
-  box-sizing: border-box;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-}
-
 .page-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
   gap: 12px;
+
+  /* keep header controls on a single line */
+  flex-wrap: nowrap;
+  min-width: 0;
 }
 
 .header-left {
   display: flex;
   align-items: center;
   gap: 12px;
-}
 
-.page-title {
-  margin: 0;
-  font-size: 1.25rem;
-}
-
-.page-sub {
-  color: #6b7280;
-  font-size: 13px;
+  /* allow left side to shrink so right-side controls can stay on one line */
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .header-right {
   display: flex;
   gap: 12px;
   align-items: center;
+
+  /* never wrap the controls; truncate long pieces instead */
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
+/* navigation controls should not wrap */
 .nav-controls {
   display: flex;
   align-items: center;
   gap: 6px;
   margin-right: 8px;
+  white-space: nowrap;
 }
 
-.nav-btn {
-  padding: 6px 8px;
-  cursor: pointer;
-  border: 1px solid #e5e7eb;
-  background: white;
-  border-radius: 6px;
-  font-size: 13px;
-}
-
-.nav-btn:hover {
-  background: #f3f4f6;
-}
-
-.nav-btn.today {
-  margin-left: 8px;
-}
-
+/* month label should truncate instead of wrapping */
 .month-label {
-  min-width: 160px;
+  min-width: 0;
+  max-width: 240px; /* adjust as needed */
   text-align: center;
   font-weight: 600;
-}
-
-/* calendar-content: let the calendar component fill the entire area given */
-.calendar-content {
-  flex: 1;
-  min-height: 0;
-  height: 100%;
   overflow: hidden;
-  display: block;
-}
-
-/* ensure the CalendarView and its immediate child views fill the available area */
-.calendar-content > * {
-  height: 100%;
-  width: 100%;
-  min-height: 0;
-  min-width: 0;
-  box-sizing: border-box;
-}
-
-/* small responsive tweak */
-@media (max-width: 900px) {
-  .calendar-page {
-    grid-template-columns: 1fr 220px;
-  }
-}
-// filepath: /home/monty/Documents/CUW/Freshman/Semester 2/Hackathon/Canvas_Hackathon/client/src/pages/Calendar_Page.scss
-.calendar-page {
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 300px; /* removed left column, main + right */
-  gap: 12px;
-  background: #f5f7fb;
-  box-sizing: border-box;
-  min-height: 0;
-}
-
-/* left-column styles removed */
-
-.right-column {
-  border-left: 1px solid #e6e9ee;
-  padding: 16px;
-  box-sizing: border-box;
-  overflow: auto;
-  background: transparent;
-}
-
-.main-column {
-  padding: 16px;
-  overflow: hidden; /* prevent page-level scroll; calendar child will fill and handle overflow */
-  box-sizing: border-box;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  gap: 12px;
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.page-title {
-  margin: 0;
-  font-size: 1.25rem;
-}
-
-.page-sub {
-  color: #6b7280;
-  font-size: 13px;
-}
-
-.header-right {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.nav-controls {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-right: 8px;
-}
-
-.nav-btn {
-  padding: 6px 8px;
-  cursor: pointer;
-  border: 1px solid #e5e7eb;
-  background: white;
-  border-radius: 6px;
-  font-size: 13px;
-}
-
-.nav-btn:hover {
-  background: #f3f4f6;
-}
-
-.nav-btn.today {
-  margin-left: 8px;
-}
-
-.month-label {
-  min-width: 160px;
-  text-align: center;
-  font-weight: 600;
-}
-
-/* calendar-content: let the calendar component fill the entire area given */
-.calendar-content {
-  flex: 1;
-  min-height: 0;
-  height: 100%;
-  overflow: hidden;
-  display: block;
-}
-
-/* ensure the CalendarView and its immediate child views fill the available area */
-.calendar-content > * {
-  height: 100%;
-  width: 100%;
-  min-height: 0;
-  min-width: 0;
-  box-sizing: border-box;
-}
-
-/* small responsive tweak */
-@media (max-width: 900px) {
-  .calendar-page {
-    grid-template-columns: 1fr 220px;
-  }
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
