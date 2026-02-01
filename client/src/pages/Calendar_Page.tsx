@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Calendar_Page.scss";
 import CalendarView, { EventItem } from "../components/CalendarView/CalendarView";
 import ViewSwitcher from "../components/Controls/ViewSwitcher";
-import RightPanel from "../components/RightPanel/RightPanel";
+//import RightPanel from "../components/RightPanel/RightPanel";
 
 type ViewMode = "month" | "week" | "day";
 type ClassItem = { id: string; name: string; color?: string };
@@ -29,11 +29,25 @@ export default function Calendar_Page({
   const enabledClasses = sampleClasses.reduce((acc, c) => ({ ...acc, [c.id]: true }), {});
 
   // navigation helpers...
-  const addMonths = (d: Date, months: number) => new Date(d.getFullYear(), d.getMonth() + months, d.getDate());
-  const addDays = (d: Date, days: number) => { const x = new Date(d); x.setDate(x.getDate() + days); return x; };
-  const goPrev = () => setCurrentDate((d) => (view === "month" ? addMonths(d, -1) : view === "week" ? addDays(d, -7) : addDays(d, -1)));
-  const goNext = () => setCurrentDate((d) => (view === "month" ? addMonths(d, 1) : view === "week" ? addDays(d, 7) : addDays(d, 1)));
-  const goToToday = () => setCurrentDate(new Date());
+  // const addMonths = (d: Date, months: number) => new Date(d.getFullYear(), d.getMonth() + months, d.getDate());
+  // const addDays = (d: Date, days: number) => { const x = new Date(d); x.setDate(x.getDate() + days); return x; };
+  // const goPrev = () => setCurrentDate((d) => (view === "month" ? addMonths(d, -1) : view === "week" ? addDays(d, -7) : addDays(d, -1)));
+  // const goNext = () => setCurrentDate((d) => (view === "month" ? addMonths(d, 1) : view === "week" ? addDays(d, 7) : addDays(d, 1)));
+  // const goToToday = () => setCurrentDate(new Date());
+  const addMonths = (d: Date, months: number) => {
+    const year = d.getFullYear();
+    const monthIndex = d.getMonth() + months;
+    const targetYear = year + Math.floor(monthIndex / 12);
+    const targetMonth = ((monthIndex % 12) + 12) % 12;
+    // clamp day to last day of target month (avoids rolling into following month)
+    const lastDay = new Date(targetYear, targetMonth + 1, 0).getDate();
+    const day = Math.min(d.getDate(), lastDay);
+    return new Date(targetYear, targetMonth, day);
+  };
+   const addDays = (d: Date, days: number) => { const x = new Date(d); x.setDate(x.getDate() + days); return x; };
+   const goPrev = () => setCurrentDate((d) => (view === "month" ? addMonths(d, -1) : view === "week" ? addDays(d, -7) : addDays(d, -1)));
+   const goNext = () => setCurrentDate((d) => (view === "month" ? addMonths(d, 1) : view === "week" ? addDays(d, 7) : addDays(d, 1)));
+   const goToToday = () => setCurrentDate(new Date());
 
   const monthLabel = view === "month"
     ? `${currentDate.toLocaleString(undefined, { month: "long" })} ${currentDate.getFullYear()}`
